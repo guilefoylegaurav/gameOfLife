@@ -1,15 +1,15 @@
-import * as React from 'react';
+import React from 'react';
 import { useRef, useState } from 'react';
-import { cols, ops, pixelWidth, rows } from './Constants';
-import { cellStyle, gridContStyle } from './Styles';
-import { generateGrid } from './Utilities';
+import { cols, duration, ops, pixelWidth, rows } from './Constants';
+import { gridContStyle } from './Styles';
+import { generateGrid, randomGrid } from './Utilities';
 import produce from 'immer';
-export interface IAppProps {
-}
+import Cell from './Components/Cell';
 
 
 
-export default function App(props: IAppProps) {
+
+const App: React.FC = () => {
   const [grid, setGrid] = useState(generateGrid())
   const [running, setRunning] = useState(false);
   const runningRef = useRef(running);
@@ -18,7 +18,7 @@ export default function App(props: IAppProps) {
     if (!runningRef.current) {
       return;
     }
-    setGrid(grid => produce(grid, draft => {
+    setGrid((grid: number[][]) => produce(grid, draft => {
       for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
           let neighbours = 0;
@@ -55,11 +55,12 @@ export default function App(props: IAppProps) {
 
     }));
 
-    setTimeout(propagate, 100);
+    setTimeout(propagate, duration);
 
   }
+
   return (
-    <React.Fragment>
+    <div>
       <button onClick={() => {
 
         setRunning(!running);
@@ -75,44 +76,21 @@ export default function App(props: IAppProps) {
       }}>Clear</button>
 
       <button onClick={() => {
-        setGrid(grid => produce(grid, draft => {
-          for (let i = 0; i < rows; i++) {
-            for (let j = 0; j < cols; j++) {
-                 draft[i][j] = Math.floor(Math.random() * 2); 
-            }
-          }
-        })); 
-
-       
-
-
-
+        setGrid(randomGrid());
       }}>
         Random grid
       </button>
       <div style={gridContStyle}>
-        {grid.map((row, rowIndex) => row.map((col, colIndex) =>
-          <div
-
-            onClick={() => {
-              const nextState = produce(grid, draft => {
-                draft[rowIndex][colIndex] = grid[rowIndex][colIndex] ? 0 : 1;
-
-              });
-              setGrid(nextState);
-
-            }}
-
-            style={
-              {
-                height: pixelWidth,
-                backgroundColor: grid[rowIndex][colIndex] ? "lightgreen" : "white",
-                border: "2px solid black"
-              }
-            }></div>
-        ))}
+        {grid.map((row, i) => row.map((col, j) =>
+          <Cell alive={grid[i][j] ? true : false} toggle={() => {
+            setGrid(grid => produce(grid, draft => {
+              draft[i][j] = grid[i][j] ? 0 : 1;
+            }));
+          }} />))}
       </div>
-    </React.Fragment>
+    </div>
 
   );
+
 }
+export default App; 
