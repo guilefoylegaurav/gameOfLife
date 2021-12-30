@@ -1,5 +1,5 @@
-export const rows = 50; 
-export const cols = 50; 
+export const rows = 10; 
+export const cols = 10; 
 export const color = "lightgreen"
 export const pixelWidth = 20
 export const duration = 50
