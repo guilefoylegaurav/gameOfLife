@@ -4,21 +4,23 @@
     margin-right: auto;
     max-width: 80%;
     text-align: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 
 .right
 {
     float: right;
-    max-width: 500px;
+    max-width: 450px;
     
 }
 
 .info
 {
+    
     margin-left: auto;
     margin-right: auto;
-    
+    font-size: 20px;
     text-align: center;
 }
 
