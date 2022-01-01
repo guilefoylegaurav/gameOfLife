@@ -61,9 +61,9 @@ const App: React.FC = () => {
   }
 
   return (
-
-    <div className='container'>
-      <div className='right'>
+    <div>
+      <div className='container'>
+        <div>
         <div className="btn-grp">
           <LargeButton label={running ? "Stop" : "Start"}
             color={running ? "red" : "green"}
@@ -84,34 +84,37 @@ const App: React.FC = () => {
           <LargeButton label="Random Grid" action={() => {
             setGrid(randomGrid());
           }} />
+          </div>
 
-
+             <div className='info'>
+                     <a href='https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life'> Conway's Game of Life</a> made using React Hooks
+             </div>
 
         </div>
 
-        <div className='info'>
-          <h2>Conway's Game of Life</h2>
-          <span>It is a cellular automaton, and was invented by Cambridge mathematician John Conway.
-            It consists of a grid of cells which, based on a few mathematical rules, can live, die or multiply. Depending on the initial conditions, the cells form various patterns throughout the course of the game.
-            <p><a href='https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life'> Learn More</a></p>
-          </span>
+
+
+
+
+
+
+
+
+        <div className='grid'>
+          {grid.map((row, i) => row.map((col, j) =>
+            <Cell alive={grid[i][j] ? true : false} toggle={() => {
+              setGrid(grid => produce(grid, draft => {
+                draft[i][j] = grid[i][j] ? 0 : 1;
+              }));
+            }} />))}
         </div>
+
+
 
       </div>
 
 
 
-
-
-
-      <div className='gridCont'>
-        {grid.map((row, i) => row.map((col, j) =>
-          <Cell alive={grid[i][j] ? true : false} toggle={() => {
-            setGrid(grid => produce(grid, draft => {
-              draft[i][j] = grid[i][j] ? 0 : 1;
-            }));
-          }} />))}
-      </div>
 
     </div>
 

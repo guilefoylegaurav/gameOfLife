@@ -8,20 +8,15 @@
 }
 
 
-.right
-{
-    float: right;
-    max-width: 450px;
-    
-}
+
 
 .info
 {
     
-    margin-left: auto;
-    margin-right: auto;
+   
     font-size: 20px;
     text-align: center;
+    padding: 20px;
 }
 
 .btn-grp
@@ -30,11 +25,13 @@
     
 }
 
-.gridCont
+.grid
 {
-    float: left;
+    
+    margin-left: auto;
     padding: 10px;
     display: grid;
+    justify-content: center;
     grid-template-columns: repeat(50, 20px);
     
     
@@ -58,3 +55,4 @@
    border: none;
    font-size: 30px;
 }
+
