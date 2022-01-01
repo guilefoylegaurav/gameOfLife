@@ -1,10 +1,11 @@
 import React from 'react';
 import { useRef, useState } from 'react';
-import { cols, duration, ops, pixelWidth, rows } from './Constants';
-import { gridContStyle } from './Styles';
+import { cols, duration, ops, rows } from './Constants';
 import { generateGrid, randomGrid } from './Utilities';
 import produce from 'immer';
 import Cell from './Components/Cell';
+import './defaultStyles.css'
+import LargeButton from './Components/LargeButton';
 
 
 
@@ -60,27 +61,50 @@ const App: React.FC = () => {
   }
 
   return (
-    <div>
-      <button onClick={() => {
 
-        setRunning(!running);
-        if (!running) {
-          runningRef.current = true;
-          propagate();
-        }
+    <div className='container'>
+      <div className='right'>
+        <div className="btn-grp">
+          <LargeButton label={running ? "Stop" : "Start"}
+            color={running ? "red" : "green"}
+            action={() => {
+              setRunning(!running);
+              if (!running) {
+                runningRef.current = true;
+                propagate();
+              }
 
-      }}> {running ? "Stop" : "Start"} </button>
+            }} />
 
-      <button onClick={() => {
-        setGrid(generateGrid());
-      }}>Clear</button>
+          <LargeButton label="Clear" action={() => {
+            setGrid(generateGrid());
+          }} color="palevioletred" />
 
-      <button onClick={() => {
-        setGrid(randomGrid());
-      }}>
-        Random grid
-      </button>
-      <div style={gridContStyle}>
+
+          <LargeButton label="Random Grid" action={() => {
+            setGrid(randomGrid());
+          }} />
+
+
+
+        </div>
+
+        <div className='info'>
+          <h1>Conway's Game of Life</h1>
+          <span>It is a cellular automaton, and was invented by Cambridge mathematician John Conway.
+            It consists of a grid of cells which, based on a few mathematical rules, can live, die or multiply. Depending on the initial conditions, the cells form various patterns throughout the course of the game.
+            <p><a href='https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life'> Learn More</a></p>
+          </span>
+        </div>
+
+      </div>
+
+
+
+
+
+
+      <div className='gridCont'>
         {grid.map((row, i) => row.map((col, j) =>
           <Cell alive={grid[i][j] ? true : false} toggle={() => {
             setGrid(grid => produce(grid, draft => {
@@ -88,7 +112,10 @@ const App: React.FC = () => {
             }));
           }} />))}
       </div>
+
     </div>
+
+
 
   );
 
