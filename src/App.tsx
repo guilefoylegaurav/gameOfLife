@@ -90,7 +90,7 @@ const App: React.FC = () => {
         </div>
 
         <div className='info'>
-          <h1>Conway's Game of Life</h1>
+          <h2>Conway's Game of Life</h2>
           <span>It is a cellular automaton, and was invented by Cambridge mathematician John Conway.
             It consists of a grid of cells which, based on a few mathematical rules, can live, die or multiply. Depending on the initial conditions, the cells form various patterns throughout the course of the game.
             <p><a href='https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life'> Learn More</a></p>
